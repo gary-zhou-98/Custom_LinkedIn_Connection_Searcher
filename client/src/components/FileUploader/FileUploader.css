@@ -1,0 +1,37 @@
+@tailwind components;
+
+@layer components {
+  .file-uploader {
+    @apply w-full max-w-2xl h-64 px-4 py-8 
+           bg-gray-800 rounded-lg border-2 border-dashed border-gray-600
+           flex items-center justify-center
+           cursor-pointer transition-all duration-200
+           hover:border-gray-400;
+  }
+
+  .file-uploader.dragging {
+    @apply border-blue-400 bg-gray-700;
+  }
+
+  .upload-content {
+    @apply flex flex-col items-center justify-center text-center;
+  }
+
+  .upload-icon {
+    @apply w-12 h-12 mb-4 text-gray-400;
+  }
+
+  .upload-text {
+    @apply text-gray-300 text-sm;
+  }
+
+  .file-name {
+    @apply text-lg font-medium text-blue-400 mb-2;
+  }
+
+  .change-file-btn {
+    @apply text-sm text-gray-400 hover:text-gray-300 
+           underline underline-offset-2
+           transition-colors duration-200;
+  }
+}
