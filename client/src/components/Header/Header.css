@@ -1,0 +1,19 @@
+@tailwind components;
+
+@layer components {
+  .header {
+    @apply w-full h-16 border-b border-gray-200/10 bg-gray-600;
+  }
+
+  .header-container {
+    @apply max-w-7xl mx-auto h-full px-4 flex items-center;
+  }
+
+  .header-logo {
+    @apply text-xl font-bold text-white hover:text-gray-300 transition-colors flex items-center;
+  }
+
+  .header-label {
+    @apply text-white hover:text-blue-400 transition-colors duration-200;
+  }
+}
