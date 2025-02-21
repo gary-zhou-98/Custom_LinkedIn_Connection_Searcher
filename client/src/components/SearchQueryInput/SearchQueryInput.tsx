@@ -2,26 +2,28 @@
 
 import React from "react";
 import "@/styles/SearchQueryInput.css";
+import { useSearchQuery } from "@/context/SearchQueryContext";
 
 const SearchQueryInput = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
-    console.log(newQuery);
+    updateSearchQuery(newQuery);
   };
+  const { searchQuery, updateSearchQuery } = useSearchQuery();
 
   return (
     <div className="search-container">
       <input
         type="text"
-        value={""}
+        value={searchQuery}
         onChange={handleInputChange}
         placeholder="Enter your search query..."
         className="search-input"
       />
-      {true && (
+      {searchQuery.length > 0 && (
         <button
           className="clear-button"
-          onClick={() => {}}
+          onClick={() => updateSearchQuery("")}
           aria-label="Clear search"
         >
           ×

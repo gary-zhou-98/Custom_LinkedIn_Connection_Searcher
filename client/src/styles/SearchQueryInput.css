@@ -2,7 +2,7 @@
 
 @layer components {
   .search-container {
-    @apply relative w-full max-w-2xl mb-4;
+    @apply relative flex justify-start items-center w-full max-w-2xl;
   }
 
   .search-input {
