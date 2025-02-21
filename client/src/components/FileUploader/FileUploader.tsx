@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import "./FileUploader.css";
+import "@/styles/FileUploader.css";
 
 const FileUploader = () => {
   const [file, setFile] = useState<File | null>(null);
