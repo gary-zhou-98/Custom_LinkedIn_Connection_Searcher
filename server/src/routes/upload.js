@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const { processCSVData } = require("../controllers/csvController");
 
 const router = express.Router();
 
@@ -8,13 +9,14 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // POST route for CSV file uploads
-router.post("/", upload.single("file"), (req, res) => {
+router.post("/", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
     console.log("File uploaded:", req.file);
-    res.status(200).json({ message: "File uploaded successfully" });
+    const parsedCSV = await processCSVData(req.file.buffer);
+    res.status(200).json({ data: parsedCSV });
   } catch (error) {
     console.error("Error uploading file:", error);
     res.status(500).json({ error: "Failed to upload file" });
