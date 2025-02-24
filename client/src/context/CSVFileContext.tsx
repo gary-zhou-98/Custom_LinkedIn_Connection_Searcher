@@ -2,15 +2,15 @@
 
 import React, { createContext, useState, useContext, useCallback } from "react";
 
-export interface CSVData {
-  [key: string]: string;
-}
+// export interface CSVData {
+//   "[key: string]": string;
+// }
 
 interface CSVFileContextType {
   csvFile: File | null;
-  csvData: CSVData[] | null;
+  csvData: JSON[] | null;
   updateCSVFile: (file: File | null) => void;
-  updateCSVData: (data: CSVData[] | null) => void;
+  updateCSVData: (data: JSON[] | null) => void;
 }
 
 const CSVFileContext = createContext<CSVFileContextType | undefined>(undefined);
@@ -21,7 +21,7 @@ export const CSVFileProvider = ({
   children: React.ReactNode;
 }) => {
   const [csvFile, setCSVFile] = useState<File | null>(null);
-  const [csvData, setCSVData] = useState<CSVData[] | null>(null);
+  const [csvData, setCSVData] = useState<JSON[] | null>(null);
   const updateCSVFile = useCallback(
     (file: File | null) => {
       setCSVFile(file);
@@ -30,7 +30,7 @@ export const CSVFileProvider = ({
   );
 
   const updateCSVData = useCallback(
-    (data: CSVData[] | null) => {
+    (data: JSON[] | null) => {
       setCSVData(data);
     },
     [setCSVData]

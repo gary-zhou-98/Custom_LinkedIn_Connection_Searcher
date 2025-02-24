@@ -16,7 +16,8 @@ const ConnectionsTable = () => {
   }
 
   // Get headers from the first object's keys
-  const headers = Object.keys(csvData[0]);
+  let headers = Object.keys(csvData[0]);
+  headers = ["index", ...headers];
   return (
     <div className="table-container">
       <table className="connections-table">
@@ -30,13 +31,19 @@ const ConnectionsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {csvData.map((row, rowIndex) => (
+          {csvData.map((row: JSON, rowIndex: number) => (
             <tr key={rowIndex} className="table-row">
-              {headers.map((header) => (
-                <td key={`${rowIndex}-${header}`} className="table-cell">
-                  {row[header]}
-                </td>
-              ))}
+              {headers.map((header) =>
+                header === "index" ? (
+                  <td key={`${rowIndex}-${header}`} className="table-cell">
+                    {rowIndex}
+                  </td>
+                ) : (
+                  <td key={`${rowIndex}-${header}`} className="table-cell">
+                    {row[header]}
+                  </td>
+                )
+              )}
             </tr>
           ))}
         </tbody>

@@ -15,8 +15,7 @@ export default function Home() {
     if (csvFile) {
       try {
         uploadCSV(csvFile).then((data) => {
-          console.log(data.data);
-          updateCSVData(data.data);
+          updateCSVData(data);
         });
       } catch (error) {
         console.error(error);
