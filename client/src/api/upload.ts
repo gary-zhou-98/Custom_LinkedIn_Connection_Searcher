@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { CSVData } from "@/context/CSVFileContext";
 const UPLOAD_API_URL = "http://localhost:5000/api/upload";
 
 export async function uploadCSV(file: File) {
@@ -13,7 +13,7 @@ export async function uploadCSV(file: File) {
       },
     });
 
-    return response.data;
+    return response.data as CSVData[];
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data?.error || "Upload failed");

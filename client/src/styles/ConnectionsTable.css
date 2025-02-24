@@ -1,0 +1,57 @@
+@tailwind components;
+
+@layer components {
+  .table-container {
+    @apply w-full max-w-4xl 
+           overflow-x-auto 
+           rounded-lg 
+           border border-gray-700
+           bg-gray-800/30;
+  }
+
+  .connections-table {
+    @apply w-full
+           border-collapse
+           text-left
+           text-sm;
+  }
+
+  .table-header {
+    @apply bg-gray-800
+           px-4 py-3
+           font-medium
+           text-gray-200
+           border-b border-gray-700
+           whitespace-nowrap;
+  }
+
+  .table-row {
+    @apply border-b 
+           border-gray-700
+           transition-colors
+           hover:bg-gray-800/50;
+  }
+
+  .table-cell {
+    @apply px-4 py-3
+           text-gray-300
+           whitespace-nowrap;
+  }
+
+  .table-empty-state {
+    @apply w-full max-w-2xl
+           p-8
+           text-center
+           text-gray-400
+           bg-gray-800/30
+           rounded-lg
+           border border-gray-700;
+  }
+
+  .no-results {
+    @apply w-full
+           p-8
+           text-center
+           text-gray-400;
+  }
+}
