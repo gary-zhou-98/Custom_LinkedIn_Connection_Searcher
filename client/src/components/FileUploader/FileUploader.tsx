@@ -2,9 +2,10 @@
 
 import React, { useState, useRef } from "react";
 import "@/styles/FileUploader.css";
+import { useCSVFile } from "@/context/CSVFileContext";
 
 const FileUploader = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const { csvFile, updateCSVFile } = useCSVFile();
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -24,7 +25,7 @@ const FileUploader = () => {
       lastModified: selectedFile.lastModified,
     });
 
-    setFile(cleanedFile);
+    updateCSVFile(cleanedFile);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -73,14 +74,14 @@ const FileUploader = () => {
       />
 
       <div className="upload-content">
-        {file ? (
+        {csvFile ? (
           <>
-            <p className="file-name">{file.name}</p>
+            <p className="file-name">{csvFile.name}</p>
             <button
               className="change-file-btn"
               onClick={(e) => {
                 e.stopPropagation();
-                setFile(null);
+                updateCSVFile(null);
               }}
             >
               Choose different file

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SearchQueryProvider } from "@/context/SearchQueryContext";
+import { CSVFileProvider } from "@/context/CSVFileContext";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,11 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SearchQueryProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
+        <CSVFileProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {children}
+          </body>
+        </CSVFileProvider>
       </SearchQueryProvider>
     </html>
   );
