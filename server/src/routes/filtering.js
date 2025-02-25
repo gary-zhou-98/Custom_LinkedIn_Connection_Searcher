@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
       connections,
       criteria
     );
+    console.log(filteredConnections);
     res.status(200).json(filteredConnections);
   } catch (error) {
     console.error("Error filtering connections:", error);
