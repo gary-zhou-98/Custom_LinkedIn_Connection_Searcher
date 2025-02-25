@@ -1,10 +1,8 @@
-// server/src/services/gptService.js
-const { Configuration, OpenAIApi } = require("openai");
+import OpenAI from "openai";
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 /**
  * Process a single batch of connection data.
@@ -14,7 +12,7 @@ const openai = new OpenAIApi(configuration);
  */
 async function classifyBatch(batch, criteria) {
   const prompt = `
-You are an expert in evaluating companies and checking if they meet a certain criteria. Given the following list of connections, filter and return only those connections whose current company meeting the follwoing criteria: ${criteria}. 
+Given the following list of connections, filter and return only those connections whose current company meeting the follwoing criteria: ${criteria}. 
 Return the result as a JSON array of objects containing the connection details. Each object in the JSON array should have the same structure as the example object below.
 
 An example of a connection object is:
@@ -31,9 +29,19 @@ Return only the JSON array.
   `;
 
   try {
-    const completion = await openai.createCompletion({
+    const completion = await openai.chat.completions.create({
       model: "chatgpt-4o-latest",
-      prompt,
+      messages: [
+        {
+          role: "developer",
+          content:
+            "You are an expert in evaluating companies and checking if they meet a certain criteria.",
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
       max_tokens: 1000, // Adjust as needed
       temperature: 0.3,
     });
