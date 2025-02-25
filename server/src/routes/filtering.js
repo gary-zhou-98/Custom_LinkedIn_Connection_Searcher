@@ -1,6 +1,10 @@
+const express = require("express");
 const { classifyConnectionsInBatches } = require("../services/gptService");
 
-const filterConnections = async (req, res) => {
+const router = express.Router();
+
+// POST route for CSV file uploads
+router.post("/", async (req, res) => {
   const { connections, criteria } = req.body;
   if (!connections || !criteria) {
     return res
@@ -17,6 +21,6 @@ const filterConnections = async (req, res) => {
     console.error("Error filtering connections:", error);
     res.status(500).json({ error: error.message });
   }
-};
+});
 
-module.exports = { filterConnections };
+module.exports = router;
