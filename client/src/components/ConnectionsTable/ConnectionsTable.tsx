@@ -3,6 +3,7 @@
 import React from "react";
 import "@/styles/ConnectionsTable.css";
 import { useCSVFile } from "@/context/CSVFileContext";
+import { CSVData } from "@/context/CSVFileContext";
 
 const ConnectionsTable = () => {
   const { csvData } = useCSVFile();
@@ -31,7 +32,7 @@ const ConnectionsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {csvData.map((row: JSON, rowIndex: number) => (
+          {csvData.map((row: CSVData, rowIndex: number) => (
             <tr key={rowIndex} className="table-row">
               {headers.map((header) =>
                 header === "index" ? (
@@ -40,7 +41,7 @@ const ConnectionsTable = () => {
                   </td>
                 ) : (
                   <td key={`${rowIndex}-${header}`} className="table-cell">
-                    {row[header]}
+                    {row[header as keyof CSVData]}
                   </td>
                 )
               )}
