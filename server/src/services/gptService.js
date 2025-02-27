@@ -1,7 +1,7 @@
 const { OpenAI } = require("openai");
-
+const { chunkArray } = require("../utils/batchCSVUtils");
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPEN_AI_API_KEY,
 });
 
 /**
@@ -25,12 +25,12 @@ An example of a connection object is:
 Data:
 ${JSON.stringify(batch, null, 2)}
 
-Return only the JSON array.
+Return only the JSON array without any additionl text.
   `;
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "chatgpt-4o-latest",
+      model: "gpt-4o",
       messages: [
         {
           role: "developer",
@@ -42,12 +42,20 @@ Return only the JSON array.
           content: prompt,
         },
       ],
-      max_tokens: 1000, // Adjust as needed
       temperature: 0.3,
     });
 
-    const resultText = completion.data.choices[0].text.trim();
-    const filteredConnections = JSON.parse(resultText);
+    const resultText = completion.choices[0].message.content;
+    let cleanedString = resultText;
+    cleanedString = "[" + cleanedString.split("[")[1];
+    cleanedString = cleanedString.split("]")[0] + "]";
+    if (!resultText && completion.choices[0].message.refusal) {
+      throw error(
+        "Model refused to answer with refusal:",
+        completion.choices[0].message.refusal
+      );
+    }
+    const filteredConnections = JSON.parse(cleanedString);
     return filteredConnections;
   } catch (error) {
     console.error("Error processing batch:", error);
@@ -65,13 +73,13 @@ Return only the JSON array.
 async function classifyConnectionsInBatches(
   connections,
   criteria,
-  batchSize = 10
+  batchSize = 20
 ) {
-  const { chunkArray } = require("../utils/batchUtils");
   const batches = chunkArray(connections, batchSize);
   let allFiltered = [];
 
-  for (const batch of batches) {
+  // TODO: @gary-zhou-98 iterate over all batches once request is successfully served
+  for (const batch of batches.slice(0, 1)) {
     try {
       const filteredBatch = await classifyBatch(batch, criteria);
       allFiltered = allFiltered.concat(filteredBatch);

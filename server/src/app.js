@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 // server/src/app.js
 const express = require("express"); // Express provides a minimalist framework for building web APIs.
 const cors = require("cors"); // CORS middleware enables cross-origin requests, which is needed for communication between your front end and back end.
