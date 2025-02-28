@@ -83,8 +83,7 @@ async function classifyConnectionsInBatches(
   const batches = chunkArray(connections, batchSize);
   let allFiltered = [];
 
-  // TODO: @gary-zhou-98 iterate over all batches once request is successfully served
-  for (const batch of batches.slice(0, 1)) {
+  for (const batch of batches) {
     try {
       const filteredBatch = await classifyBatch(batch, criteria);
       allFiltered = allFiltered.concat(filteredBatch);
