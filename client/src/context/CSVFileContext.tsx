@@ -14,8 +14,10 @@ export interface CSVData {
 interface CSVFileContextType {
   csvFile: File | null;
   csvData: CSVData[] | null;
+  filteredCSVData: CSVData[] | null;
   updateCSVFile: (file: File | null) => void;
   updateCSVData: (data: CSVData[] | null) => void;
+  updateFilteredCSVData: (data: CSVData[] | null) => void;
 }
 
 const CSVFileContext = createContext<CSVFileContextType | undefined>(undefined);
@@ -27,6 +29,9 @@ export const CSVFileProvider = ({
 }) => {
   const [csvFile, setCSVFile] = useState<File | null>(null);
   const [csvData, setCSVData] = useState<CSVData[] | null>(null);
+  const [filteredCSVData, setFilteredCSVData] = useState<CSVData[] | null>(
+    null
+  );
   const updateCSVFile = useCallback(
     (file: File | null) => {
       setCSVFile(file);
@@ -41,13 +46,21 @@ export const CSVFileProvider = ({
     [setCSVData]
   );
 
+  const updateFilteredCSVData = useCallback(
+    (data: CSVData[] | null) => {
+      setFilteredCSVData(data);
+    },
+    [setFilteredCSVData]
+  );
   return (
     <CSVFileContext.Provider
       value={{
         csvFile,
         csvData,
+        filteredCSVData,
         updateCSVFile,
         updateCSVData,
+        updateFilteredCSVData,
       }}
     >
       {children}
