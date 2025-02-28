@@ -17,9 +17,14 @@ Return the result as a JSON array of objects containing the connection details. 
 
 An example of a connection object is:
 {
-  "name": "John Doe",
-  "company": "Tech Corp",
+  "First Name": "John",
+  "Last Name": "Doe",
+  "Email Address": "john.doe@example.com",
+  URL: "https://www.linkedin.com/in/john-doe",
+  Company: "Tech Corp",
+  Position: "Software Engineer"
 }
+    
 
 
 Data:
