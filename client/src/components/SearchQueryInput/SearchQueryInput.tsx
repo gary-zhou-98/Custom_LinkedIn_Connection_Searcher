@@ -8,7 +8,7 @@ import { useCSVFile } from "@/context/CSVFileContext";
 
 const SearchQueryInput = () => {
   const { searchQuery, updateSearchQuery } = useSearchQuery();
-  const { csvData, updateFilteredCSVData } = useCSVFile();
+  const { csvData, updateFilteredCSVData, updateIsFiltering } = useCSVFile();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
@@ -18,11 +18,13 @@ const SearchQueryInput = () => {
   const handleSubmit = () => {
     if (searchQuery.trim()) {
       if (csvData) {
+        updateIsFiltering(true);
         filterConnections(csvData, searchQuery.trim())
           .then((filteredConnections) => {
             // TODO: @garyzhou display filtered result
             console.log("Filtered connections:", filteredConnections);
             updateFilteredCSVData(filteredConnections);
+            updateIsFiltering(false);
           })
           .catch((error) => {
             console.error("Error filtering connections:", error);

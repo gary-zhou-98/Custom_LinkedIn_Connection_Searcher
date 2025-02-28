@@ -3,10 +3,15 @@
 import React from "react";
 import "@/styles/ConnectionsTable.css";
 import { useCSVFile } from "@/context/CSVFileContext";
-import ConnectionsTableElement from "./ConnectionsTableElement";
+import ConnectionsTableComponent from "./ConnectionsTableComponent";
+import ConnectionsTableLoadingComponent from "./ConnctionsTableLoadingComponent";
 
 const ConnectionsTable = () => {
-  const { csvData, filteredCSVData } = useCSVFile();
+  const { csvData, filteredCSVData, isFiltering } = useCSVFile();
+
+  if (isFiltering) {
+    return <ConnectionsTableLoadingComponent />;
+  }
 
   if (!filteredCSVData || filteredCSVData.length === 0) {
     if (!csvData || csvData.length === 0) {
@@ -16,10 +21,10 @@ const ConnectionsTable = () => {
         </div>
       );
     }
-    return <ConnectionsTableElement data={csvData} />;
+    return <ConnectionsTableComponent data={csvData} />;
   }
 
-  return <ConnectionsTableElement data={filteredCSVData} />;
+  return <ConnectionsTableComponent data={filteredCSVData} />;
 };
 
 export default ConnectionsTable;

@@ -1,11 +1,13 @@
 import React from "react";
 import "@/styles/ConnectionsTable.css";
 import { CSVData } from "@/context/CSVFileContext";
-interface ConnectionsTableElementProps {
+interface ConnectionsTableComponentProps {
   data: CSVData[];
 }
 
-const ConnectionsTableElement = ({ data }: ConnectionsTableElementProps) => {
+const ConnectionsTableComponent = ({
+  data,
+}: ConnectionsTableComponentProps) => {
   // Get headers from the first object's keys
   let headers = Object.keys(data[0]);
   headers = ["index", ...headers];
@@ -47,4 +49,4 @@ const ConnectionsTableElement = ({ data }: ConnectionsTableElementProps) => {
   );
 };
 
-export default ConnectionsTableElement;
+export default ConnectionsTableComponent;
