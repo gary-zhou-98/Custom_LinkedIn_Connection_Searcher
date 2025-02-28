@@ -50,6 +50,28 @@
            border border-gray-700;
   }
 
+  .table-loading-state {
+    @apply w-full max-w-2xl
+           p-8
+           flex flex-col items-center justify-center gap-4
+           text-center
+           text-gray-300
+           bg-gray-800/30
+           rounded-lg
+           border border-gray-700;
+  }
+
+  .loading-spinner {
+    @apply flex justify-center items-center;
+  }
+
+  .loading-spinner-circle {
+    @apply w-12 h-12 
+           border-4 border-gray-600 border-t-blue-500
+           rounded-full
+           animate-spin;
+  }
+
   .no-results {
     @apply w-full
            p-2
