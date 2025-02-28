@@ -3,13 +3,37 @@
 import React from "react";
 import "@/styles/SearchQueryInput.css";
 import { useSearchQuery } from "@/context/SearchQueryContext";
+import { filterConnections } from "@/api";
+import { useCSVFile } from "@/context/CSVFileContext";
 
 const SearchQueryInput = () => {
+  const { searchQuery, updateSearchQuery } = useSearchQuery();
+  const { csvData, updateFilteredCSVData, updateIsFiltering } = useCSVFile();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     updateSearchQuery(newQuery);
   };
-  const { searchQuery, updateSearchQuery } = useSearchQuery();
+
+  const handleSubmit = () => {
+    if (searchQuery.trim()) {
+      if (csvData) {
+        updateIsFiltering(true);
+        filterConnections(csvData, searchQuery.trim())
+          .then((filteredConnections) => {
+            // TODO: @garyzhou display filtered result
+            console.log("Filtered connections:", filteredConnections);
+            updateFilteredCSVData(filteredConnections);
+            updateIsFiltering(false);
+          })
+          .catch((error) => {
+            console.error("Error filtering connections:", error);
+          });
+      } else {
+        alert("Upload a CSV file first");
+      }
+    }
+  };
 
   return (
     <div className="search-container">
@@ -19,7 +43,20 @@ const SearchQueryInput = () => {
         onChange={handleInputChange}
         placeholder="Enter your search query..."
         className="search-input"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && searchQuery.trim()) {
+            handleSubmit();
+          }
+        }}
       />
+      <button
+        className="submit-button"
+        onClick={handleSubmit}
+        disabled={!searchQuery.trim()}
+        aria-label="Execute search"
+      >
+        Search
+      </button>
       {searchQuery.length > 0 && (
         <button
           className="clear-button"

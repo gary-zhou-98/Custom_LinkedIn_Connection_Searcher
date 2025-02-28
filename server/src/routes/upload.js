@@ -14,7 +14,6 @@ router.post("/", upload.single("file"), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
-    console.log("File uploaded:", req.file);
     const parsedCSV = await processCSVData(req.file.buffer);
     res.status(200).json({ data: parsedCSV });
   } catch (error) {
