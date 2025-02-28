@@ -2,7 +2,7 @@
 
 @layer components {
   .file-uploader {
-    @apply w-full max-w-xl h-64 px-4 py-8 
+    @apply w-full max-w-xl h-32 px-4 py-8 
            bg-gray-800 rounded-lg border-2 border-dashed border-gray-600
            flex items-center justify-center
            cursor-pointer transition-all duration-200
