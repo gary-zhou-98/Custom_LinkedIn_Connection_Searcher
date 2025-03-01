@@ -5,6 +5,8 @@ import "@/styles/SearchQueryInput.css";
 import { useSearchQuery } from "@/context/SearchQueryContext";
 import { filterConnections } from "@/api";
 import { useCSVFile } from "@/context/CSVFileContext";
+import chunkArray from "@/utils/batchCSVUtils";
+import { CSVData } from "@/context/CSVFileContext";
 
 const SearchQueryInput = () => {
   const { searchQuery, updateSearchQuery } = useSearchQuery();
@@ -15,20 +17,25 @@ const SearchQueryInput = () => {
     updateSearchQuery(newQuery);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (searchQuery.trim()) {
       if (csvData) {
         updateIsFiltering(true);
-        filterConnections(csvData, searchQuery.trim())
-          .then((filteredConnections) => {
-            // TODO: @garyzhou display filtered result
-            console.log("Filtered connections:", filteredConnections);
-            updateFilteredCSVData(filteredConnections);
-            updateIsFiltering(false);
-          })
-          .catch((error) => {
-            console.error("Error filtering connections:", error);
-          });
+        let allFilteredConnections: CSVData[] = [];
+        for (const batch of chunkArray(csvData, 100)) {
+          await filterConnections(batch, searchQuery.trim(), 25, 4)
+            .then((filteredConnections) => {
+              // TODO: @garyzhou display filtered result
+              console.log("Filtered connections:", filteredConnections);
+              allFilteredConnections =
+                allFilteredConnections.concat(filteredConnections);
+            })
+            .catch((error) => {
+              console.error("Error filtering connections:", error);
+            });
+        }
+        updateFilteredCSVData(allFilteredConnections);
+        updateIsFiltering(false);
       } else {
         alert("Upload a CSV file first");
       }

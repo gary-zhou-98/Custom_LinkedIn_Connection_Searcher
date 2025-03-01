@@ -7,16 +7,22 @@ const FILTER_API_URL = "http://localhost:5000/api/filter";
 interface FilterRequest {
   connections: CSVData[];
   criteria: string;
+  batchSize: number;
+  concurrencyLimit: number;
 }
 
 export async function filterConnections(
   connections: CSVData[],
-  criteria: string
+  criteria: string,
+  batchSize: number,
+  concurrencyLimit: number
 ) {
   try {
     const requestBody: FilterRequest = {
       connections,
       criteria,
+      batchSize,
+      concurrencyLimit,
     };
 
     const response = await axios.post(FILTER_API_URL, requestBody, {
