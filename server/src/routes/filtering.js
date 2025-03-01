@@ -5,7 +5,7 @@ const router = express.Router();
 
 // POST route for CSV file uploads
 router.post("/", async (req, res) => {
-  const { connections, criteria } = req.body;
+  const { connections, criteria, batchSize, concurrencyLimit } = req.body;
   if (!connections || !criteria) {
     return res
       .status(400)
@@ -14,7 +14,9 @@ router.post("/", async (req, res) => {
   try {
     const filteredConnections = await classifyConnectionsInBatches(
       connections,
-      criteria
+      criteria,
+      batchSize,
+      concurrencyLimit
     );
     res.status(200).json(filteredConnections);
   } catch (error) {
