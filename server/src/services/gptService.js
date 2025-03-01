@@ -78,18 +78,30 @@ Return only the JSON array without any additionl text.
 async function classifyConnectionsInBatches(
   connections,
   criteria,
-  batchSize = 20
+  batchSize = 20,
+  concurrencyLimit = 4
 ) {
   const batches = chunkArray(connections, batchSize);
   let allFiltered = [];
 
-  for (const batch of batches) {
+  // Process batches in chunks to control concurrency
+  for (let i = 0; i < batches.length; i += concurrencyLimit) {
+    const batchChunk = batches.slice(i, i + concurrencyLimit);
+    const batchPromises = batchChunk.map((batch) =>
+      classifyBatch(batch, criteria).catch((error) => {
+        console.error("Error in batch classification:", error);
+        return [];
+      })
+    );
+
     try {
-      const filteredBatch = await classifyBatch(batch, criteria);
-      allFiltered = allFiltered.concat(filteredBatch);
+      const results = await Promise.all(batchPromises);
+      results.forEach((filteredBatch) => {
+        allFiltered = allFiltered.concat(filteredBatch);
+      });
     } catch (error) {
       console.error("Error in batch classification:", error);
-      // Optionally, handle errors per batch or continue to next batch.
+      throw error;
     }
   }
   return allFiltered;
