@@ -1,8 +1,7 @@
 import axios from "axios";
 
 import { CSVData } from "@/context/CSVFileContext";
-
-const FILTER_API_URL = "http://localhost:5000/api/filter";
+import { config } from "../config/env";
 
 interface FilterRequest {
   connections: CSVData[];
@@ -25,7 +24,7 @@ export async function filterConnections(
       concurrencyLimit,
     };
 
-    const response = await axios.post(FILTER_API_URL, requestBody, {
+    const response = await axios.post(`${config.apiUrl}/filter`, requestBody, {
       headers: {
         "Content-Type": "application/json",
       },
