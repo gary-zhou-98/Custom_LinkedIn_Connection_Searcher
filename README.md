@@ -2,7 +2,7 @@
 
 ## Context
 
-This project was inspired by a friend who asked me for referrals to FAANG companies, and LinkeIn's lack of search capability for fuzzy connections search using criterias such as "FAANG companies" or "tech start-ups". It provides a streamlined solution for filtering and analyzing your **first degree** (see details below) LinkedIn connections based on custom criteria. By leveraging AI, it helps users identify specific segments of their professional network, such as finding connections working at startups, specific industries, or companies matching certain criteria.
+This project was inspired by a friend who asked me for referrals to FAANG companies, and LinkedIn's lack of search capability for fuzzy connections search using criterias such as "FAANG companies" or "tech start-ups". It provides a streamlined solution for filtering and analyzing your **first degree** (see details below) LinkedIn connections based on custom criteria. By leveraging AI, it helps users identify specific segments of their professional network, such as finding connections working at startups, specific industries, or companies matching certain criteria.
 
 The application processes a CSV export of LinkedIn connections and uses GPT-4 to intelligently filter and categorize connections based on user-defined criteria, making it easier to maintain and leverage your professional network effectively.
 
