@@ -20,6 +20,7 @@ interface CSVFileContextType {
   updateCSVData: (data: CSVData[] | null) => void;
   updateFilteredCSVData: (data: CSVData[] | null) => void;
   updateIsFiltering: (isFiltering: boolean) => void;
+  clearFilteredCSVData: () => void;
 }
 
 const CSVFileContext = createContext<CSVFileContextType | undefined>(undefined);
@@ -64,6 +65,10 @@ export const CSVFileProvider = ({
     [setFilteredCSVData]
   );
 
+  const clearFilteredCSVData = useCallback(() => {
+    setFilteredCSVData(null);
+  }, [setFilteredCSVData]);
+
   const updateIsFiltering = useCallback(
     (isFiltering: boolean) => {
       setIsFiltering(isFiltering);
@@ -82,6 +87,7 @@ export const CSVFileProvider = ({
         updateCSVData,
         updateFilteredCSVData,
         updateIsFiltering,
+        clearFilteredCSVData,
       }}
     >
       {children}
