@@ -19,10 +19,10 @@ An example of a connection object is:
 {
   "First Name": "John",
   "Last Name": "Doe",
-  "Email Address": "john.doe@example.com",
-  URL: "https://www.linkedin.com/in/john-doe",
   Company: "Tech Corp",
   Position: "Software Engineer"
+  "Email Address": "john.doe@example.com",
+  URL: "https://www.linkedin.com/in/john-doe",
 }
     
 

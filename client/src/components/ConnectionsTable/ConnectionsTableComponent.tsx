@@ -18,7 +18,7 @@ const ConnectionsTableComponent = ({
         <thead>
           <tr>
             {headers.map((header) => (
-              <th key={header} className="table-header">
+              <th key={header} className="table-header" data-column={header}>
                 {header}
               </th>
             ))}
@@ -29,11 +29,19 @@ const ConnectionsTableComponent = ({
             <tr key={rowIndex} className="table-row">
               {headers.map((header) =>
                 header === "index" ? (
-                  <td key={`${rowIndex}-${header}`} className="table-cell">
+                  <td
+                    key={`${rowIndex}-${header}`}
+                    className="table-cell"
+                    data-column={header}
+                  >
                     {rowIndex}
                   </td>
                 ) : (
-                  <td key={`${rowIndex}-${header}`} className="table-cell">
+                  <td
+                    key={`${rowIndex}-${header}`}
+                    className="table-cell"
+                    data-column={header}
+                  >
                     {row[header as keyof CSVData]}
                   </td>
                 )

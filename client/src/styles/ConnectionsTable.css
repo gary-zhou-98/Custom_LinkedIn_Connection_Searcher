@@ -47,18 +47,10 @@
 
   .connections-table {
     @apply w-full
+           table-fixed
            border-collapse
            text-left
            text-sm;
-  }
-
-  .table-header {
-    @apply bg-gray-800
-           px-4 py-3
-           font-medium
-           text-gray-200
-           border-b border-gray-700
-           whitespace-nowrap;
   }
 
   .table-row {
@@ -68,10 +60,53 @@
            hover:bg-gray-800/50;
   }
 
+  .table-header {
+    @apply bg-gray-800
+           px-3 py-3
+           font-medium
+           text-gray-200
+           border-b border-gray-700
+           max-w-[400px]  /* Fixed width */
+           align-top
+           whitespace-normal  /* Allow text wrapping */
+           break-words;
+  }
+
   .table-cell {
-    @apply px-2 py-2
+    @apply px-3 py-3
            text-gray-300
-           whitespace-nowrap;
+           max-w-[400px]  /* Fixed width */
+           align-top
+           whitespace-normal  /* Allow text wrapping */
+           break-words
+           overflow-hidden;
+  }
+
+  /* Specific column widths */
+  .table-header[data-column="index"],
+  .table-cell[data-column="index"] {
+    @apply w-[80px]; /* Smaller width for index */
+  }
+
+  .table-header[data-column="First Name"],
+  .table-cell[data-column="First Name"],
+  .table-header[data-column="Last Name"],
+  .table-cell[data-column="Last Name"] {
+    @apply w-[150px];
+  }
+
+  .table-header[data-column="Email Address"],
+  .table-cell[data-column="Email Address"],
+  .table-header[data-column="URL"],
+  .table-cell[data-column="URL"] {
+    @apply w-[350px];
+  }
+
+  .table-header[data-column="Company"],
+  .table-cell[data-column="Company"],
+  .table-header[data-column="Position"],
+  .table-cell[data-column="Position"] {
+    @apply w-[250px];
   }
 
   .table-empty-state {

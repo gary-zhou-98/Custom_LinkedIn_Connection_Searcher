@@ -12,12 +12,12 @@ function processCSVData(buffer) {
       .pipe(csv())
       .on("data", (data) => {
         results.push({
-          firstName: data["First Name"],
-          lastName: data["Last Name"],
-          email: data["Email Address"],
-          linkedinUrl: data["URL"],
-          company: data["Company"],
-          title: data["Position"],
+          "First Name": data["First Name"],
+          "Last Name": data["Last Name"],
+          Company: data["Company"],
+          Position: data["Position"],
+          "Email Address": data["Email Address"],
+          URL: data["URL"],
         });
       })
       .on("end", () => {
