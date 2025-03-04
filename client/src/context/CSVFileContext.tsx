@@ -51,7 +51,15 @@ export const CSVFileProvider = ({
 
   const updateFilteredCSVData = useCallback(
     (data: CSVData[] | null) => {
-      setFilteredCSVData(data);
+      if (data) {
+        setFilteredCSVData((prev) => {
+          if (prev) {
+            return [...prev, ...data];
+          } else {
+            return data;
+          }
+        });
+      }
     },
     [setFilteredCSVData]
   );
