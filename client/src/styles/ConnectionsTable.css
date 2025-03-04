@@ -1,6 +1,40 @@
 @tailwind components;
 
 @layer components {
+  .table-view-container {
+    @apply flex flex-col gap-4 w-full;
+  }
+
+  .table-view-controls {
+    @apply flex gap-3 items-center justify-center;
+  }
+
+  .view-toggle-button {
+    @apply px-4 py-2 
+           rounded-lg
+           text-sm font-medium
+           transition-all duration-200
+           disabled:cursor-not-allowed
+           border-2;
+  }
+
+  .view-toggle-button:not(.selected) {
+    @apply bg-gray-800 
+           text-gray-300
+           border-gray-700
+           hover:bg-gray-700
+           hover:border-gray-600
+           disabled:opacity-50;
+  }
+
+  .view-toggle-button.selected {
+    @apply bg-blue-500
+           text-white
+           border-blue-600
+           disabled:opacity-100
+           disabled:cursor-default;
+  }
+
   .table-container {
     @apply w-full max-w-4xl 
            h-full max-h-96

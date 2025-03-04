@@ -26,5 +26,5 @@ body {
 }
 
 .main-content {
-  @apply flex flex-col gap-8 row-start-2 justify-center items-center sm:items-center;
+  @apply flex flex-col gap-4 row-start-2 justify-center items-center sm:items-center;
 }
